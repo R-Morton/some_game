@@ -11,8 +11,8 @@ class NPC:
         self.dodge_chance = agility * 4
         self.crit_chance = 5 + (luck * 2)
         self.block_chance = 15 + (endurance * 3)
-        self.stamina = 100 + (agility * 5)
-    
+        self.max_stamina = 100 + (agility * 5)
+        self.stamina = self.max_stamina
 
 
 

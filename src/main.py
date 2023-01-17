@@ -69,7 +69,7 @@ def attack(self, attacker, type):
     if type == 'heavy':
         damage += (damage * 20/100)
         attacker.stamina -= 25
-    os.system('clear')
+    os.system('cls')
     print(f"{attacker.name} uses {type} attack on {self.name}")
     sleep(2)
     if dodge_chance_func(self) == True:
@@ -88,7 +88,14 @@ def attack(self, attacker, type):
         return
 
 def defensive_stance(self):
-    self.stamina += 30
+    count = 0
+    while self.stamina < self.max_stamina:
+        count += 1
+        if count == 31:
+            break
+        else:
+            self.stamina += 1
+    os.system('cls')
     print(f'{self.name} uses defensive stance')
     self.defensive_block()
     sleep(2)
@@ -96,7 +103,14 @@ def defensive_stance(self):
     self.reverse_defensive_block()
 
 def normal_stance(self):
-    self.stamina += 50
+    count = 0
+    while self.stamina < self.max_stamina:
+        count += 1
+        if count == 51:
+            break
+        else:
+            self.stamina += 1
+    os.system('cls')
     print(f'{self.name} uses normal stance')
     self.normal_stance()
     sleep(2) 
