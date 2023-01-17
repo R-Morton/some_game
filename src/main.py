@@ -1,7 +1,7 @@
 from classes import *
 import os
 
-player = Player('Rhys', 2, 3, 2, 1, 100)
+player = Player('Rhys', 2, 3, 2, 2, 100)
 npc = NPC("Noob", 2, 1, 1, 1, 50)
 
 def fight():
@@ -27,8 +27,8 @@ def death_checker():
         return True
 
 def display_health():
-    print(f"NPC health - {npc.health}")
-    print(f"Player health - {player.health} \n")
+    print(f"{npc} health - {npc.health}")
+    print(f"{player} health - {player.health} \n")
 
 fight()
 
