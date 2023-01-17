@@ -12,6 +12,7 @@ def fight():
         display_health_stamina()
         print("1 - Light Attack")
         print("2 - Heavy Attack")
+        print("3 - Defensive Stance")
         user_input = input("Choose an option")
         match user_input:
             case "1":
@@ -89,14 +90,18 @@ def attack(self, attacker, type):
 def defensive_stance(self):
     self.stamina += 30
     print(f'{self.name} uses defensive stance')
+    self.defensive_block()
     sleep(2)
-    attack(self, npc, 'light', True, False)
+    attack(self, npc, 'light')
+    self.reverse_defensive_block()
 
 def normal_stance(self):
     self.stamina += 50
     print(f'{self.name} uses normal stance')
+    self.normal_stance()
     sleep(2) 
-    attack(self, npc, 'light', False, True)
+    attack(self, npc, 'light')
+    self.reverse_normal_stance()
 
 
 def dodge_chance_func(self):
@@ -119,6 +124,7 @@ def block_chance_func(self):
         sleep(2)
         os.system('cls')
         return True
+        
 
 fight()
 
