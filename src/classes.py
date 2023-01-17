@@ -7,7 +7,8 @@ class NPC:
         self.strength = strength
         self.agility = agility
         self.luck = luck
-        self.health = health + (endurance * 10)
+        self.health = health
+        self.max_health = self.health + (endurance * 10)
         self.dodge_chance = agility * 4
         self.crit_chance = 5 + (luck * 2)
         self.block_chance = 15 + (endurance * 3)

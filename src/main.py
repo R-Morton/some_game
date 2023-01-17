@@ -3,8 +3,50 @@ import os
 from time import sleep
 import random
 
-player = Player('Rhys', 2, 3, 2, 2, 100)
+with open("player_save.txt", "r") as f:
+    lines = f.readlines()
+    for line in lines:
+        saved_player = line.split()
+    player = Player(saved_player[0], int(saved_player[1]), int(saved_player[2]), int(saved_player[3]), int(saved_player[4]), 100)
+
+
+ 
 npc = NPC("Noob", 1, 1, 1, 1, 50)
+
+def main_screen():
+    while True:
+        os.system('cls')
+        print("1: Fight opponent")
+        print("2: View Stats")
+        print("2: Save/Exit")
+        user_input = input("Select an option: ")
+        match user_input:
+            case '1':
+                fight()
+            case '2':
+                view_stats()
+            case '3':
+                save_exit()
+                os.system('exit')
+
+def view_stats():
+    while True:
+        os.system('cls')
+        print(f"Health - {player.max_health}")
+        print(f"Stamina - {player.max_stamina}")
+        print(f"Strength - {player.strength}")
+        print(f"Endurance - {player.endurance}")
+        print(f"Agility - {player.agility}")
+        print(f"Luck - {player.luck}")
+        input("Press enter to go back")
+        break
+
+
+def save_exit():
+    save_info = f"{player.name}, int({player.endurance}), int({player.strength}), int({player.agility}), int({player.luck}), int({player.health})"
+    with open("player_save.txt", "w") as f:
+        f.write(save_info)
+        return
 
 def fight():
     while True:
@@ -13,7 +55,7 @@ def fight():
         print("1 - Light Attack")
         print("2 - Heavy Attack")
         print("3 - Defensive Stance")
-        user_input = input("Choose an option")
+        user_input = input("Choose an option: ")
         match user_input:
             case "1":
                 if player.stamina < 15:
@@ -140,6 +182,5 @@ def block_chance_func(self):
         return True
         
 
-fight()
-
+main_screen()
         
