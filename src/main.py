@@ -2,6 +2,7 @@ from classes import *
 import os
 from time import sleep
 import random
+import weapons
 
 with open("player_save.txt", "r") as f:
     lines = f.readlines()
@@ -17,17 +18,42 @@ def main_screen():
     while True:
         os.system('cls')
         print("1: Fight opponent")
-        print("2: View Stats")
-        print("2: Save/Exit")
+        print("2: Go Shopping")
+        print("3: View Stats")
+        print("4: Save/Exit")
         user_input = input("Select an option: ")
         match user_input:
             case '1':
                 fight()
             case '2':
-                view_stats()
+                shopping()
             case '3':
+                view_stats()
+            case '4':
                 save_exit()
                 os.system('exit')
+
+def shopping():
+    while True:
+        os.system('cls')
+        print(f"Your gold {player.gold}")
+        print("1 - Weapons merchant")
+        print("2 - Armour merchant")
+        user_input = input("Please Select Option")
+        match user_input:
+            case "1":
+                weapon_merchant()
+        break
+
+def weapon_merchant():
+    while True:
+        print("Buy/Sell")
+        print("Go Back")
+        user_input = input("Please Select Option")
+        match user_input:
+            case "1":
+                print("")
+
 
 def view_stats():
     while True:
@@ -97,6 +123,7 @@ def death_checker():
             return True
     elif npc.health <= 0:
         print(f"{npc.name} died")
+        player.gold += 100
         return True
 
 def display_health_stamina():
@@ -106,7 +133,7 @@ def display_health_stamina():
     print(f"{player.name} stamina - {player.stamina} \n")
 
 def attack(self, attacker, type):
-    damage = 10 + (attacker.strength)
+    damage = 5 + (attacker.strength) + (attacker.equiped_weapon)
     attacker.stamina -= 15
     if type == 'heavy':
         damage += (damage * 20/100)
