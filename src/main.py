@@ -1,10 +1,11 @@
 from classes import *
 import os
 
-player = Player('Rhys', 100)
-npc = NPC("Noob", 100)
+player = Player('Rhys', 2, 3, 2, 1, 100)
+npc = NPC("Noob", 2, 1, 1, 1, 50)
 
 def fight():
+    display_health()
     while True:
         input("Press something to attack")
         os.system('clear')
@@ -27,7 +28,8 @@ def death_checker():
 
 def display_health():
     print(f"NPC health - {npc.health}")
-    print(f"Player health - {player.health}")
+    print(f"Player health - {player.health} \n")
 
 fight()
+
         
