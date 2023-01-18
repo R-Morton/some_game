@@ -4,7 +4,7 @@ from time import sleep
 import random
 import merchants
 from player_import import player
-npc = NPC("Noob", 1, 1, 1, 1, 1, 50)
+npc = NPC("Noob", 1, 1, 1, 1, 1, 1, 1, 50)
 
 def main_screen():
     while True:
@@ -40,7 +40,7 @@ def view_stats():
 
 
 def save_exit():
-    save_info = f"'{player.name}' {player.endurance} {player.strength} {player.agility} {player.luck} {player.health}"
+    save_info = f"'{player.name}' {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.level} {player.health}"
     with open("player_save.txt", "w") as f:
         f.write(save_info)
         return
@@ -52,6 +52,7 @@ def fight():
         print("1 - Light Attack")
         print("2 - Heavy Attack")
         print("3 - Defensive Stance")
+        print("4 - Normal Stance")
         user_input = input("Choose an option: ")
         match user_input:
             case "1":
@@ -94,12 +95,15 @@ def death_checker():
             return True
     elif npc.health <= 0:
         print(f"{npc.name} died")
+        npc.health = npc.max_health
+        player.health = player.max_health
+        player.stamina = player.max_stamina
         player.gold += 100
         return True
 
 def display_health_stamina():
     print(f"{npc.name} health - {npc.health}")
-    print(f"{npc.name} stamina - {npc.stamina}")
+    #print(f"{npc.name} stamina - {npc.stamina}")
     print(f"{player.name} health - {player.health}")
     print(f"{player.name} stamina - {player.stamina} \n")
 
@@ -119,7 +123,7 @@ def attack(self, attacker, type):
     elif crit_chance_func(attacker) == True:
         print(f"{attacker.name} deals {damage * 2} damage to {self.name}")
         if attacker == player:
-            player.weapon_skill_leveling()
+            player.skill_leveling()
         sleep(2)
         os.system('cls')
         self.health -= damage * 2
@@ -127,7 +131,7 @@ def attack(self, attacker, type):
     else:
         print(f"{attacker.name} deals {damage} damage to {self.name}")
         if attacker == player:
-            player.weapon_skill_leveling()
+            player.skill_leveling()
         self.health -= damage
         sleep(2)
         return
