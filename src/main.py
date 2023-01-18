@@ -4,7 +4,6 @@ from time import sleep
 import random
 import merchants
 from player_import import player
-from skill_leveling import weapon_skill_leveling
 npc = NPC("Noob", 1, 1, 1, 1, 1, 50)
 
 def main_screen():
@@ -120,14 +119,15 @@ def attack(self, attacker, type):
     elif crit_chance_func(attacker) == True:
         print(f"{attacker.name} deals {damage * 2} damage to {self.name}")
         if attacker == player:
-            weapon_skill_leveling()
+            player.weapon_skill_leveling()
         sleep(2)
+        os.system('cls')
         self.health -= damage * 2
         return
     else:
         print(f"{attacker.name} deals {damage} damage to {self.name}")
         if attacker == player:
-            weapon_skill_leveling()
+            player.weapon_skill_leveling()
         self.health -= damage
         sleep(2)
         return
@@ -173,8 +173,6 @@ def dodge_chance_func(self):
 def crit_chance_func(self):
     if random.randint(1, 100) <= self.crit_chance:
         print(f"Critical hit! due to {self.name} {self.crit_chance}% chance")
-        sleep(2)
-        os.system('cls')
         return True
 
 def block_chance_func(self):

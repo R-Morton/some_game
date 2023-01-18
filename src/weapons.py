@@ -1,11 +1,11 @@
 
 iron_weapons = {
-    'iron sword': [2, 100],
-    'iron mace': [2, 100]
+    'iron sword': [0, 2, 100],
+    'iron mace': [1, 2, 100]
 }
 
 iron_armour = {
-    'iron breastplate': [1, 120]
+    'iron breastplate': [1, 1, 120]
 }
 
-#print(iron_weapons['iron sword'][1])
+# index (0 - type), (1 - damage/armour rating) (2 - cost)
