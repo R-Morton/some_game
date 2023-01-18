@@ -53,4 +53,4 @@ def weapon_merchant():
 
 
 #weapon_merchant()
-print(player.damage)
+#print(player.damage)

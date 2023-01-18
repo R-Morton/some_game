@@ -4,7 +4,8 @@ from time import sleep
 import random
 import merchants
 from player_import import player
-npc = NPC("Noob", 1, 1, 1, 1, 50)
+from skill_leveling import weapon_skill_leveling
+npc = NPC("Noob", 1, 1, 1, 1, 1, 50)
 
 def main_screen():
     while True:
@@ -118,11 +119,15 @@ def attack(self, attacker, type):
         return
     elif crit_chance_func(attacker) == True:
         print(f"{attacker.name} deals {damage * 2} damage to {self.name}")
+        if attacker == player:
+            weapon_skill_leveling()
         sleep(2)
         self.health -= damage * 2
         return
     else:
         print(f"{attacker.name} deals {damage} damage to {self.name}")
+        if attacker == player:
+            weapon_skill_leveling()
         self.health -= damage
         sleep(2)
         return
@@ -180,6 +185,6 @@ def block_chance_func(self):
         return True
         
 
-#main_screen()
+main_screen()
 
         
