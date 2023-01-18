@@ -1,6 +1,7 @@
 import random
 from weapons import *
 
+
 class NPC:
 
     def __init__(self, name, endurance, strength, agility, luck, health):
@@ -16,15 +17,15 @@ class NPC:
         self.block_chance = 15 + (endurance * 3)
         self.max_stamina = 100 + (agility * 5)
         self.stamina = self.max_stamina
-        self.equiped_weapon = iron_sword
+        self.equipped_weapon = ('iron sword', [2, 100])
+        self.damage = 5 + (strength + self.equipped_weapon[1][0])
 
 
 
 class Player(NPC):
-
+    
     def __init__(self, name, endurance, strength, agility, luck, health):
         super().__init__(name, endurance, strength, agility, luck, health)
-        self.equipped_weapon = iron_sword
         self.gold = 0
 
     def defensive_block(self):

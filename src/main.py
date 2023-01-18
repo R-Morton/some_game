@@ -2,16 +2,8 @@ from classes import *
 import os
 from time import sleep
 import random
-import weapons
-
-with open("player_save.txt", "r") as f:
-    lines = f.readlines()
-    for line in lines:
-        saved_player = line.split()
-    player = Player(saved_player[0], int(saved_player[1]), int(saved_player[2]), int(saved_player[3]), int(saved_player[4]), 100)
-
-
- 
+import merchants
+from player_import import player
 npc = NPC("Noob", 1, 1, 1, 1, 50)
 
 def main_screen():
@@ -26,33 +18,12 @@ def main_screen():
             case '1':
                 fight()
             case '2':
-                shopping()
+                merchants.shopping()
             case '3':
                 view_stats()
             case '4':
                 save_exit()
                 os.system('exit')
-
-def shopping():
-    while True:
-        os.system('cls')
-        print(f"Your gold {player.gold}")
-        print("1 - Weapons merchant")
-        print("2 - Armour merchant")
-        user_input = input("Please Select Option")
-        match user_input:
-            case "1":
-                weapon_merchant()
-        break
-
-def weapon_merchant():
-    while True:
-        print("Buy/Sell")
-        print("Go Back")
-        user_input = input("Please Select Option")
-        match user_input:
-            case "1":
-                print("")
 
 
 def view_stats():
@@ -69,7 +40,7 @@ def view_stats():
 
 
 def save_exit():
-    save_info = f"{player.name}, int({player.endurance}), int({player.strength}), int({player.agility}), int({player.luck}), int({player.health})"
+    save_info = f"'{player.name}' {player.endurance} {player.strength} {player.agility} {player.luck} {player.health}"
     with open("player_save.txt", "w") as f:
         f.write(save_info)
         return
@@ -133,7 +104,7 @@ def display_health_stamina():
     print(f"{player.name} stamina - {player.stamina} \n")
 
 def attack(self, attacker, type):
-    damage = 5 + (attacker.strength) + (attacker.equiped_weapon)
+    damage = attacker.damage
     attacker.stamina -= 15
     if type == 'heavy':
         damage += (damage * 20/100)
@@ -209,5 +180,6 @@ def block_chance_func(self):
         return True
         
 
-main_screen()
+#main_screen()
+
         
