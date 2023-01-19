@@ -16,13 +16,14 @@ def shopping():
                 weapon_merchant()
             case "2":
                 armour_merchant()
+        os.system("cls")
         break
 
 def weapon_merchant():
     while True:
         os.system("cls")
-        print("Buy/Sell")
-        print("Go Back")
+        print("1: Buy/Sell")
+        print("2: Go Back")
         user_input = input("Please Select Option: ")
         os.system('cls')
         match user_input:
@@ -43,6 +44,7 @@ def weapon_merchant():
                     if user_input2 == selection:
                         print(f"{weapons[0]} has been equipped")
                         player.equipped_weapon = weapons
+                        player.damage = 5 + (player.strength + player.equipped_weapon[1][1])
                         sleep(3)
                         break
                     else:
@@ -54,8 +56,8 @@ def weapon_merchant():
 def armour_merchant():
     while True:
         os.system("cls")
-        print("Buy/Sell")
-        print("Go Back")
+        print("1: Buy/Sell")
+        print("2: Go Back")
         user_input = input("Please Select Option: ")
         os.system("cls")
         match user_input:
@@ -84,16 +86,22 @@ def armour_merchant():
                         match armour_slot:
                             case 0:
                                 player.equipped_chest = armour
+                                player.armor_rating = player.equipped_chest[1][2] + player.equipped_legs[1][2] + player.equipped_hands[1][2] + player.equipped_head[1][2] + player.equipped_feet[1][2]
                             case 1:
                                 player.equipped_legs = armour
+                                player.armor_rating = player.equipped_chest[1][2] + player.equipped_legs[1][2] + player.equipped_hands[1][2] + player.equipped_head[1][2] + player.equipped_feet[1][2]
                             case 2:
                                 player.equipped_hands = armour
+                                player.armor_rating = player.equipped_chest[1][2] + player.equipped_legs[1][2] + player.equipped_hands[1][2] + player.equipped_head[1][2] + player.equipped_feet[1][2]
                             case 3:
                                 player.equipped_head = armour
+                                player.armor_rating = player.equipped_chest[1][2] + player.equipped_legs[1][2] + player.equipped_hands[1][2] + player.equipped_head[1][2] + player.equipped_feet[1][2]
                             case 4:
                                 player.equipped_feet = armour
+                                player.armor_rating = player.equipped_chest[1][2] + player.equipped_legs[1][2] + player.equipped_hands[1][2] + player.equipped_head[1][2] + player.equipped_feet[1][2]
                             case 5:
                                 player.equipped_shield = armour
+                                player.block_chance = 10 + (player.endurance * 3) + player.equipped_shield[1][2]
                         break
                     else:
                         selection += 1

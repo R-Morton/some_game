@@ -32,7 +32,7 @@ class NPC:
         self.block_max_exp = 80 + (block * 20)
         self.max_health = 40 + (endurance * 10)
         self.health = self.max_health
-        self.dodge_chance = agility * 4
+        self.dodge_chance = 5 + (agility * 3)
         self.crit_chance = 5 + (luck * 2)
         self.equipped_shield = ('nothing', [4, 0, 0])
         self.block_chance = 10 + (endurance * 3) + self.equipped_shield[1][2]
@@ -40,11 +40,11 @@ class NPC:
         self.stamina = self.max_stamina
         self.equipped_weapon = ('iron sword', [0, 2, 100])
         self.damage = 5 + (strength + self.equipped_weapon[1][1])
-        self.equipped_chest = ('nothing', [5, 0, 0])
-        self.equipped_legs = ('nothing', [5, 0, 0])
-        self.equipped_hands = ('nothing', [5, 0, 0])
-        self.equipped_head = ('nothing', [5, 0, 0])
-        self.equipped_feet = ('nothing', [5, 0, 0])
+        self.equipped_chest = ('nothing', [5, 0, 0, 0])
+        self.equipped_legs = ('nothing', [5, 1, 0, 0])
+        self.equipped_hands = ('nothing', [5, 2, 0, 0])
+        self.equipped_head = ('nothing', [5, 3, 0, 0])
+        self.equipped_feet = ('nothing', [5, 4, 0, 0])
         self.armor_rating = self.equipped_chest[1][2] + self.equipped_legs[1][2] + self.equipped_hands[1][2] + self.equipped_head[1][2] + self.equipped_feet[1][2]
 
 
@@ -52,9 +52,9 @@ class NPC:
 
 class Player(NPC):
     
-    def __init__(self, name, endurance, strength, agility, luck, blade, blunt, light, heavy, block, level, blade_exp, blunt_exp, light_exp, heavy_exp, block_exp, level_exp):
+    def __init__(self, name, endurance, strength, agility, luck, blade, blunt, light, heavy, block, level, blade_exp, blunt_exp, light_exp, heavy_exp, block_exp, level_exp, gold):
         super().__init__(name, endurance, strength, agility, luck, blade, blunt, light, heavy, block, level, blade_exp, blunt_exp, light_exp, heavy_exp, block_exp, level_exp)
-        self.gold = 0
+        self.gold = gold
         self.max_health = 90 + (endurance * 10)
         self.health = self.max_health
 
@@ -135,18 +135,24 @@ class Player(NPC):
                 match user_input:
                     case '1':
                         self.strength += 1
+                        self.damage = 5 + (self.strength + self.equipped_weapon[1][1])
                         os.system('cls')
                         return
                     case '2':
                         self.endurance += 1
+                        self.block_chance = 10 + (self.endurance * 3) + self.equipped_shield[1][2]
+                        self.max_health = 40 + (self.endurance * 10)
                         os.system('cls')
                         return
                     case '3':
                         self.agility += 1
+                        self.dodge_chance = 5 + (self.agility * 3)
+                        self.max_stamina = 100 + (self.agility * 5)
                         os.system('cls')
                         return
                     case '4':
                         self.luck += 1
+                        self.crit_chance = 5 + (self.luck * 2)
                         os.system('cls')
                         return
                     case _:

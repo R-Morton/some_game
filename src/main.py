@@ -49,7 +49,12 @@ def view_stats():
         print(f"Light - {player.light} ({player.light_exp}/{player.light_max_exp})")
         print(f"Heavy - {player.heavy} ({player.heavy_exp}/{player.heavy_max_exp})")
         print(f"Block - {player.block} ({player.block_exp}/{player.block_max_exp}) \n")
+        print("Other")
+        print(f"Block Chance - {player.block_chance}%")
+        print(f"Dodge Chance - {player.dodge_chance}%")
+        print(f"Crit Chance - {player.crit_chance}%")
         input("Press enter to go back")
+        os.system("cls")
         break
 
 def view_equipment():
@@ -61,14 +66,16 @@ def view_equipment():
         print(f"Hands - {player.equipped_hands[0]} ({player.equipped_hands[1][2]} - armour)")
         print(f"Legs - {player.equipped_legs[0]} ({player.equipped_legs[1][2]} - armour)")
         print(f"Feet - {player.equipped_feet[0]} ({player.equipped_feet[1][2]} - armour) \n")
+        print(f"Total Armour Rating - {player.armor_rating} \n")
         print("Weapons/Shield")
         print(f"Weapon - {player.equipped_weapon[0]} ({player.equipped_weapon[1][1]} - damage)")
         print(f"Shield - {player.equipped_shield[0]} ({player.equipped_head[1][2]} - block rating) \n")
         input("Press enter to go back")
+        os.system("cls")
         break
 
 def save_exit():
-    save_info = f"{player.name} {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.light} {player.heavy} {player.block} {player.level} {player.blade_exp} {player.blunt_exp} {player.light_exp} {player.heavy_exp} {player.block_exp} {player.level_exp}"
+    save_info = f"{player.name} {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.light} {player.heavy} {player.block} {player.level} {player.blade_exp} {player.blunt_exp} {player.light_exp} {player.heavy_exp} {player.block_exp} {player.level_exp} {player.gold}"
     with open("player_save.txt", "w") as f:
         f.write(save_info)
         return
