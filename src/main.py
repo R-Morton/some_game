@@ -12,8 +12,9 @@ def main_screen():
         print("1: Fight opponent")
         print("2: Go Shopping")
         print("3: View Stats")
-        print("4: Developer Tools")
-        print("5: Save/Exit")
+        print("4: View Equipment")
+        print("5: Developer Tools")
+        print("6: Save/Exit")
         user_input = input("Select an option: ")
         match user_input:
             case '1':
@@ -23,8 +24,10 @@ def main_screen():
             case '3':
                 view_stats()
             case '4':
-                developer_tools()
+                view_equipment()
             case '5':
+                developer_tools()
+            case '6':
                 save_exit()
                 os.system('exit')
 
@@ -49,6 +52,20 @@ def view_stats():
         input("Press enter to go back")
         break
 
+def view_equipment():
+    while True:
+        os.system('cls')
+        print("Armour")
+        print(f"Head - {player.equipped_head[0]} ({player.equipped_head[1][2]} - armour)")
+        print(f"Chest - {player.equipped_chest[0]} ({player.equipped_chest[1][2]} - armour)")
+        print(f"Hands - {player.equipped_hands[0]} ({player.equipped_hands[1][2]} - armour)")
+        print(f"Legs - {player.equipped_legs[0]} ({player.equipped_legs[1][2]} - armour)")
+        print(f"Feet - {player.equipped_feet[0]} ({player.equipped_feet[1][2]} - armour) \n")
+        print("Weapons/Shield")
+        print(f"Weapon - {player.equipped_weapon[0]} ({player.equipped_weapon[1][1]} - damage)")
+        print(f"Shield - {player.equipped_shield[0]} ({player.equipped_head[1][2]} - block rating) \n")
+        input("Press enter to go back")
+        break
 
 def save_exit():
     save_info = f"{player.name} {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.light} {player.heavy} {player.block} {player.level} {player.blade_exp} {player.blunt_exp} {player.light_exp} {player.heavy_exp} {player.block_exp} {player.level_exp}"
@@ -110,7 +127,8 @@ def death_checker():
         npc.health = npc.max_health
         player.health = player.max_health
         player.stamina = player.max_stamina
-        player.gold += 100
+        player.gold += 50
+        player.general_leveling(20)
         return True
 
 def display_health_stamina():

@@ -35,7 +35,7 @@ class NPC:
         self.dodge_chance = agility * 4
         self.crit_chance = 5 + (luck * 2)
         self.equipped_shield = ('nothing', [4, 0, 0])
-        self.block_chance = 10 + (endurance * 3) + self.equipped_shield[1][1]
+        self.block_chance = 10 + (endurance * 3) + self.equipped_shield[1][2]
         self.max_stamina = 100 + (agility * 5)
         self.stamina = self.max_stamina
         self.equipped_weapon = ('iron sword', [0, 2, 100])
@@ -45,7 +45,7 @@ class NPC:
         self.equipped_hands = ('nothing', [5, 0, 0])
         self.equipped_head = ('nothing', [5, 0, 0])
         self.equipped_feet = ('nothing', [5, 0, 0])
-        self.armor_rating = self.equipped_chest[1][1] + self.equipped_legs[1][1] + self.equipped_hands[1][1] + self.equipped_head[1][1] + self.equipped_feet[1][1]
+        self.armor_rating = self.equipped_chest[1][2] + self.equipped_legs[1][2] + self.equipped_hands[1][2] + self.equipped_head[1][2] + self.equipped_feet[1][2]
 
 
 
