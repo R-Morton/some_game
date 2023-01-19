@@ -5,7 +5,7 @@ iron_weapons = {
 }
 
 iron_armour = {
-    'iron breastplate': [2, 1, 120]
+    'iron breastplate': [3, 1, 120]
 }
 
 # index (0 - type), (1 - damage/armour rating) (2 - cost)

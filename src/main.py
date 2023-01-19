@@ -4,7 +4,7 @@ from time import sleep
 import random
 import merchants
 from player_import import player
-npc = NPC("Noob", 1, 1, 1, 1, 1, 1, 1, 50)
+npc = NPC("Noob", 1, 1, 1, 1, 1, 1, 1)
 
 def main_screen():
     while True:
@@ -31,16 +31,21 @@ def view_stats():
         os.system('cls')
         print(f"Health - {player.max_health}")
         print(f"Stamina - {player.max_stamina}")
+        print(f"Level - {player.level} ({player.level_exp}/{player.level_max_exp}) \n")
+        print("Major Stats")
         print(f"Strength - {player.strength}")
         print(f"Endurance - {player.endurance}")
         print(f"Agility - {player.agility}")
-        print(f"Luck - {player.luck}")
+        print(f"Luck - {player.luck} \n")
+        print("Weapons Skills")
+        print(f"Blade - {player.blade} ({player.blade_exp}/{player.blade_max_exp})")
+        print(f"Blunt - {player.blunt} ({player.blunt_exp}/{player.blunt_max_exp}) \n")
         input("Press enter to go back")
         break
 
 
 def save_exit():
-    save_info = f"'{player.name}' {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.level} {player.health}"
+    save_info = f"{player.name} {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.level}"
     with open("player_save.txt", "w") as f:
         f.write(save_info)
         return
@@ -95,6 +100,7 @@ def death_checker():
             return True
     elif npc.health <= 0:
         print(f"{npc.name} died")
+        sleep(3)
         npc.health = npc.max_health
         player.health = player.max_health
         player.stamina = player.max_stamina
@@ -108,7 +114,7 @@ def display_health_stamina():
     print(f"{player.name} stamina - {player.stamina} \n")
 
 def attack(self, attacker, type):
-    damage = attacker.damage
+    damage = attacker.damage - (self.armor_rating / 10)
     attacker.stamina -= 15
     if type == 'heavy':
         damage += (damage * 20/100)
