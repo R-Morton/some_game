@@ -4,7 +4,7 @@ from time import sleep
 import random
 import merchants
 from player_import import player
-npc = NPC("Noob", 1, 1, 1, 1, 1, 1, 1)
+npc = NPC("Noob", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0)
 
 def main_screen():
     while True:
@@ -12,7 +12,8 @@ def main_screen():
         print("1: Fight opponent")
         print("2: Go Shopping")
         print("3: View Stats")
-        print("4: Save/Exit")
+        print("4: Developer Tools")
+        print("5: Save/Exit")
         user_input = input("Select an option: ")
         match user_input:
             case '1':
@@ -22,6 +23,8 @@ def main_screen():
             case '3':
                 view_stats()
             case '4':
+                developer_tools()
+            case '5':
                 save_exit()
                 os.system('exit')
 
@@ -39,13 +42,16 @@ def view_stats():
         print(f"Luck - {player.luck} \n")
         print("Weapons Skills")
         print(f"Blade - {player.blade} ({player.blade_exp}/{player.blade_max_exp})")
-        print(f"Blunt - {player.blunt} ({player.blunt_exp}/{player.blunt_max_exp}) \n")
+        print(f"Blunt - {player.blunt} ({player.blunt_exp}/{player.blunt_max_exp})")
+        print(f"Light - {player.light} ({player.light_exp}/{player.light_max_exp})")
+        print(f"Heavy - {player.heavy} ({player.heavy_exp}/{player.heavy_max_exp})")
+        print(f"Block - {player.block} ({player.block_exp}/{player.block_max_exp}) \n")
         input("Press enter to go back")
         break
 
 
 def save_exit():
-    save_info = f"{player.name} {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.level}"
+    save_info = f"{player.name} {player.endurance} {player.strength} {player.agility} {player.luck} {player.blade} {player.blunt} {player.light} {player.heavy} {player.block} {player.level} {player.blade_exp} {player.blunt_exp} {player.light_exp} {player.heavy_exp} {player.block_exp} {player.level_exp}"
     with open("player_save.txt", "w") as f:
         f.write(save_info)
         return
@@ -116,6 +122,10 @@ def display_health_stamina():
 def attack(self, attacker, type):
     damage = attacker.damage - (self.armor_rating / 10)
     attacker.stamina -= 15
+    if attacker.equipped_weapon[1][0] == 0:
+        damage = damage + (attacker.blade / 2)
+    if attacker.equipped_weapon[1][0] == 1:
+        damage = damage + (attacker.blunt / 2)
     if type == 'heavy':
         damage += (damage * 20/100)
         attacker.stamina -= 25
@@ -125,11 +135,15 @@ def attack(self, attacker, type):
     if dodge_chance_func(self) == True:
         return
     if block_chance_func(self) == True:
+        if self == player:
+            player.skill_leveling(4)
         return
     elif crit_chance_func(attacker) == True:
         print(f"{attacker.name} deals {damage * 2} damage to {self.name}")
         if attacker == player:
-            player.skill_leveling()
+            player.skill_leveling(player.equipped_weapon[1][0])
+        elif self == player:
+            player.skill_leveling(player.equipped_chest[1][0])
         sleep(2)
         os.system('cls')
         self.health -= damage * 2
@@ -137,7 +151,9 @@ def attack(self, attacker, type):
     else:
         print(f"{attacker.name} deals {damage} damage to {self.name}")
         if attacker == player:
-            player.skill_leveling()
+            player.skill_leveling(player.equipped_weapon[1][0])
+        elif self == player:
+            player.skill_leveling(player.equipped_chest[1][0])
         self.health -= damage
         sleep(2)
         return
@@ -192,7 +208,17 @@ def block_chance_func(self):
         os.system('cls')
         return True
         
-
+def developer_tools():
+    while True:
+        print("1 - +100 level exp")
+        print("2 - Go back")
+        user_input = input("Select option: ")
+        match user_input:
+            case "1":
+                player.general_leveling(100)
+                continue
+            case "2":
+                return
 main_screen()
 
         
