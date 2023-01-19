@@ -4,7 +4,7 @@ from weapons import *
 
 class NPC:
 
-    def __init__(self, name, endurance, strength, agility, luck, blade, blunt, level):
+    def __init__(self, name, endurance, strength, agility, luck, blade, blunt, light, heavy, block, level):
         self.name = name
         self.endurance = endurance
         self.strength = strength
@@ -19,11 +19,20 @@ class NPC:
         self.blunt = blunt
         self.blunt_exp = 0
         self.blunt_max_exp = 80 + (blunt * 20)
+        self.light = light
+        self.light_exp = 0
+        self.light_max_exp = 80 + (light * 20)
+        self.heavy = heavy
+        self.heavy_exp = 0
+        self.heavy_max_exp = 80 + (heavy * 20)
+        self.block = block
+        self.block_exp = 0
+        self.block_max_exp = 80 + (block * 20)
         self.health = 100
         self.max_health = self.health + (endurance * 10)
         self.dodge_chance = agility * 4
         self.crit_chance = 5 + (luck * 2)
-        self.block_chance = 15 + (endurance * 3) + self.equipped_shield[1][1]
+        self.block_chance = 10 + (endurance * 3) + self.equipped_shield[1][1]
         self.max_stamina = 100 + (agility * 5)
         self.stamina = self.max_stamina
         self.equipped_weapon = ('iron sword', [0, 2, 100])
@@ -78,6 +87,27 @@ class Player(NPC):
                     self.blunt += 1
                     self.general_leveling(20)
                     print(f'Your blunt skill has leveled up to {self.blunt}')
+            case 2:
+                self.light_exp += 10
+                if self.light_exp >= self.light_max_exp:
+                    self.light_exp = 0 + (self.light_exp - self.light_max_exp)
+                    self.light += 1
+                    self.general_leveling(20)
+                    print(f'Your light skill has leveled up to {self.light}')
+            case 3:
+                self.heavy_exp += 10
+                if self.heavy_exp >= self.heavy_max_exp:
+                    self.heavy_exp = 0 + (self.heavy_exp - self.heavy_max_exp)
+                    self.heavy += 1
+                    self.general_leveling(20)
+                    print(f'Your heavy skill has leveled up to {self.heavy}')
+            case 4:
+                self.block_exp += 10
+                if self.block_exp >= self.block_max_exp:
+                    self.block_exp = 0 + (self.block_exp - self.block_max_exp)
+                    self.block += 1
+                    self.general_leveling(20)
+                    print(f'Your block skill has leveled up to {self.block}')
 
     def general_leveling(self, amount):
         self.level_exp += amount
